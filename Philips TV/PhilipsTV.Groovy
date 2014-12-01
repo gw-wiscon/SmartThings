@@ -1,9 +1,19 @@
 /**
- *	Philips TV
+ *	Philips TV SmartThings SmartDevice
  *
  *	Author: Geurt Wisselink
  *	Date: 2014-11-29
- */
+ *	Description: 
+ *	Philips TV smartdevice integrated a Philips TV with SmartThings.
+ *	
+ *  Scenarios supported: 
+ *  - switch the TV off
+ *  - volumne up/down
+ *	
+ *
+ *	Assumes that the SmartThings app pollster is configured to poll the device status.
+ *	Tested successfully with the 37pfl6007h/12 (http://www.philips.nl/c-p/37PFL6007H_12/)
+*/
  
 import groovy.json.JsonSlurper
  
@@ -115,6 +125,7 @@ def parse(String description) {
 	}
 
 	TRACE("events: ${events}")
+	//Needs to be like this. "return events" does not work for some reason
 	events
 }
 
@@ -174,6 +185,7 @@ def off() {
 	sendEvent([name:"key", value:"Standby"])
 	
 	def sendKey = apiPost( "/1/input/key", json)
+	//Needs to be like this. "return sendKey" does not work for some reason
 	sendKey
 }
 
@@ -187,6 +199,7 @@ def volumeUp() {
         delayHubAction(2000),
         apiGet("/1/audio/volume")
     ]
+	//Needs to be like this. "return sendKey" does not work for some reason
 	sendKey
 }
 
@@ -196,10 +209,11 @@ def volumeDown() {
 	sendEvent([name:"key", value:"VolumeDown"])
 	
 	def sendKey = [
-        apiPost( "/1/input/key", json),
+        apiPost("/1/input/key", json),
         delayHubAction(2000),
         apiGet("/1/audio/volume")
     ]
+	//Needs to be like this. "return sendKey" does not work for some reason
 	sendKey
 }
 
@@ -216,9 +230,10 @@ def refresh() {
 	TRACE("refresh: newPollState: ${getDataValue("pollState")}")
 	
 	def systemInfo = [
-        apiGet( "/1/system"),
+        apiGet("/1/system"),
         apiGet("/1/audio/volume")
     ]
+	//Needs to be like this. "return systemInfo" does not work for some reason
 	systemInfo
 }
 

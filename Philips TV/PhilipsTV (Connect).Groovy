@@ -1,8 +1,15 @@
 /**
- *  Philips TV Service Manager
+ *  Philips TV SmartThings Service Manager
  *
  *  Author: Geurt Wisselink
  *  Date: 2014-11-29
+ *	Description: 
+ *	Discovers a Philips TV by discovering a schemas-upnp-org:device:MediaRenderer:1 device using uPnP.
+ *	The TV must be switched ON during discovery.
+ *
+ *	Upon successful discovery, a Philips TV smartdevice is created, the control port is set to 1925.
+ *
+ *	Tested successfully with the 37pfl6007h/12 (http://www.philips.nl/c-p/37PFL6007H_12/)
  */
 definition(
     name: "Philips TV (Connect)",
