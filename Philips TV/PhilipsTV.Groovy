@@ -4,12 +4,11 @@
  *	Author: Geurt Wisselink
  *	Date: 2014-11-29
  *	Description: 
- *	Philips TV smartdevice integrated a Philips TV with SmartThings.
+ *	Philips TV smartdevice - integrates a Philips TV with SmartThings.
  *	
  *  Scenarios supported: 
  *  - switch the TV off
- *  - volumne up/down
- *	
+ *  - volume up/down
  *
  *	Assumes that the SmartThings app pollster is configured to poll the device status.
  *	Tested successfully with the 37pfl6007h/12 (http://www.philips.nl/c-p/37PFL6007H_12/)

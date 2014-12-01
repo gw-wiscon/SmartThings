@@ -3,6 +3,21 @@
  *
  *	Author: Geurt Wisselink
  *	Date: 2014-11-29
+ *	Description: 
+ *	Windows PC smartdevice - integrates a Windows PC with Airytec SW OFF installed with SmartThings.
+ *	
+ *  Scenarios supported: 
+ *  - switch the PC off
+ *	
+ *	Known issues:
+ *  - install only via SmartThings developer website (My Device tab)
+ *  - The networkid (Device Network Id *) must be properly set at install time to hex(ip):hex(port).
+ *  	example: so for 192.168.0.10:80 it must be set to: C0A8000A:50
+ *  - Not sure what happens when the IP address changes, probably the device must be installed again
+ *  - No support for WOL (Wake On Lan)
+ *
+ *	Assumes that the SmartThings app pollster is configured to poll the device status.
+ *  For Airytec Switch OFF the shutdown command string is: /?action=System.Shutdown
  */
  
 preferences {
@@ -70,6 +85,7 @@ def parse(String description) {
 	}
 
 	TRACE("events: ${events}")
+	//Needs to be like this. "return events" does not work for some reason
 	events
 }
 
@@ -134,6 +150,7 @@ def off() {
 	sendEvent([name:"key", value:"Standby"])
 	
 	def sendKey = apiGet( configSwitchOffUrl)
+	//Needs to be like this. "return sendKey" does not work for some reason
 	sendKey
 }
 
