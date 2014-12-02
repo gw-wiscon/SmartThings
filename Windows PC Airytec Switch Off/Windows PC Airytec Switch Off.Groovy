@@ -99,7 +99,11 @@ private getCallBackAddress() {
 	device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")
 }
 
-private Integer convertHexToInt(hex) {
+private Integer convertHexToInt(hex)
+{
+	if (hex.contains(".")) {
+		hex = hex.toFloat().toInteger().toString()
+	}	
 	Integer.parseInt(hex,16)
 }
 

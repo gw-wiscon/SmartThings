@@ -138,7 +138,11 @@ private getCallBackAddress() {
 	device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")
 }
 
-private Integer convertHexToInt(hex) {
+private Integer convertHexToInt(hex)
+{
+	if (hex.contains(".")) {
+		hex = hex.toFloat().toInteger().toString()
+	}
 	Integer.parseInt(hex,16)
 }
 
@@ -152,6 +156,7 @@ private getHostAddress() {
 	def controlPort = getDataValue("controlPort")
 	
 	if (!ip || !controlPort) {
+        TRACE("getHostAddress - determine ip address and port from networkId")
 		def parts = device.deviceNetworkId.split(":")
 		if (parts.length == 2) {
 			ip = parts[0]
@@ -160,6 +165,9 @@ private getHostAddress() {
 			log.warn "Can't figure out ip and port for device: ${device.id}"
 		}
 	} else {
+		if (controlPort.contains(".")) {
+			controlPort = controlPort.toFloat().toInteger().toString()
+		}
 		device.deviceNetworkId = "${ip}:${controlPort}"
 	}
 	
