@@ -8,6 +8,7 @@
  *	
  *  Scenarios supported: 
  *  - switch the PC off
+ *  - detect OFF state
  *	
  *	Known issues:
  *  - install only via SmartThings developer website (My Device tab)
@@ -146,10 +147,16 @@ private getCredentials() {
 ////////////////////////////
 def on() {
 	TRACE("Executing 'on' - does nothing")
+	refresh()
 }
 
 ////////////////////////////
 def off() {
+	//Set poll state
+	updateDataValue("pollState", "poll")
+	sendEvent([name:"refresh", value:"on"])
+	TRACE("refresh: newPollState: ${getDataValue("pollState")}")
+
 	TRACE("Executing 'off'")
 	sendEvent([name:"key", value:"Standby"])
 	

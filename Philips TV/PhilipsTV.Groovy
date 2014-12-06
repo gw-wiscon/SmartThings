@@ -9,6 +9,7 @@
  *  Scenarios supported: 
  *  - switch the TV off
  *  - volume up/down
+ *  - detect OFF state
  *
  *	Assumes that the SmartThings app pollster is configured to poll the device status.
  *	Tested successfully with the 37pfl6007h/12 (http://www.philips.nl/c-p/37PFL6007H_12/)
@@ -183,10 +184,17 @@ private getHostAddress() {
 ////////////////////////////
 def on() {
 	TRACE("Executing 'on' - does nothing")
+	refresh()
 }
 
 ////////////////////////////
 def off() {
+	//Set poll state
+	updateDataValue("pollState", "poll")
+	sendEvent([name:"refresh", value:"on"])
+	TRACE("refresh: newPollState: ${getDataValue("pollState")}")
+	
+	//Send off command
 	TRACE("Executing 'off'")
 	def json = "{\"key\": \"Standby\"}"
 	sendEvent([name:"key", value:"Standby"])
